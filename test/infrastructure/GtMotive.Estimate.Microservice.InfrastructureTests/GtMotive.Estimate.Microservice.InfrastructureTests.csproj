@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Acheve.TestHost" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\GtMotive.Estimate.Microservice.Api\GtMotive.Estimate.Microservice.Api.csproj" />
+    <ProjectReference Include="..\..\..\src\GtMotive.Estimate.Microservice.Infrastructure\GtMotive.Estimate.Microservice.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Specs\" />
+  </ItemGroup>
+
+</Project>

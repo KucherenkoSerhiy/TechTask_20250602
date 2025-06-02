@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.ApplicationInsights" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+    <PackageReference Include="MongoDB.Bson" />
+    <PackageReference Include="MongoDB.Driver" />
+    <PackageReference Include="Polly" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GtMotive.Estimate.Microservice.ApplicationCore\GtMotive.Estimate.Microservice.ApplicationCore.csproj" />
+  </ItemGroup>
+
+</Project>
