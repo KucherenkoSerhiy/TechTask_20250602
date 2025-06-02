@@ -86,7 +86,7 @@ namespace GtMotive.Estimate.Microservice.UnitTests.Domain.Entities
             Assert.Equal(VehicleStatus.Rented, vehicle.Status);
             Assert.Equal(customerId, vehicle.CurrentCustomerId);
             Assert.True(vehicle.RentedAt.HasValue);
-            Assert.True(vehicle.RentedAt.Value <= DateTime.UtcNow);
+            Assert.True(vehicle.RentedAt!.Value <= DateTime.UtcNow);
         }
 
         [Fact]

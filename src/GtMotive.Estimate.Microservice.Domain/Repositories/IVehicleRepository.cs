@@ -31,6 +31,14 @@ namespace GtMotive.Estimate.Microservice.Domain.Repositories
         Task<Vehicle?> GetByLicensePlateAsync(LicensePlate licensePlate, CancellationToken cancellationToken = default);
 
         /// <summary>
+        /// Gets the vehicle currently rented by a customer.
+        /// </summary>
+        /// <param name="customerId">The customer identifier.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The rented vehicle if found, null otherwise.</returns>
+        Task<Vehicle?> GetByCustomerIdAsync(string customerId, CancellationToken cancellationToken = default);
+
+        /// <summary>
         /// Gets all available vehicles in the fleet.
         /// </summary>
         /// <param name="cancellationToken">Cancellation token.</param>

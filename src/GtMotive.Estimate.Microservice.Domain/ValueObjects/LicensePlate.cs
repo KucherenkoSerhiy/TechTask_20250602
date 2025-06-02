@@ -1,5 +1,3 @@
-using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Text.RegularExpressions;
 
@@ -9,7 +7,6 @@ namespace GtMotive.Estimate.Microservice.Domain.ValueObjects
     /// License plate value object.
     /// Represents a vehicle license plate with validation rules.
     /// </summary>
-    [ExcludeFromCodeCoverage]
     public sealed record LicensePlate
     {
         private const int MinLength = 3;

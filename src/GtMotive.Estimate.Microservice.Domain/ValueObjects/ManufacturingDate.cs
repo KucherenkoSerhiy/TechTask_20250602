@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 
 namespace GtMotive.Estimate.Microservice.Domain.ValueObjects
@@ -8,7 +7,6 @@ namespace GtMotive.Estimate.Microservice.Domain.ValueObjects
     /// Manufacturing date value object.
     /// Represents a vehicle manufacturing date with business rule validation (maximum 5 years old).
     /// </summary>
-    [ExcludeFromCodeCoverage]
     public sealed record ManufacturingDate
     {
         private const int MaxAgeInYears = 5;

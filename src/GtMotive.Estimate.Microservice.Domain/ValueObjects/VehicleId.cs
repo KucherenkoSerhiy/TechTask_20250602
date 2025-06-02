@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics.CodeAnalysis;
 
 namespace GtMotive.Estimate.Microservice.Domain.ValueObjects
 {
@@ -7,7 +6,6 @@ namespace GtMotive.Estimate.Microservice.Domain.ValueObjects
     /// Vehicle identifier value object.
     /// Represents a strongly-typed vehicle ID following DDD patterns.
     /// </summary>
-    [ExcludeFromCodeCoverage]
     public sealed record VehicleId
     {
         /// <summary>
