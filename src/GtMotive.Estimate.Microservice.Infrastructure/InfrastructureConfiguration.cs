@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using GtMotive.Estimate.Microservice.Domain.Interfaces;
+using GtMotive.Estimate.Microservice.Domain.Repositories;
 using GtMotive.Estimate.Microservice.Infrastructure.Interfaces;
 using GtMotive.Estimate.Microservice.Infrastructure.Logging;
+using GtMotive.Estimate.Microservice.Infrastructure.MongoDb;
+using GtMotive.Estimate.Microservice.Infrastructure.Repositories;
 using GtMotive.Estimate.Microservice.Infrastructure.Telemetry;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -27,6 +30,10 @@ namespace GtMotive.Estimate.Microservice.Infrastructure
             {
                 services.AddScoped(typeof(ITelemetry), typeof(NoOpTelemetry));
             }
+
+            // Register MongoDB services
+            services.AddSingleton<MongoService>();
+            services.AddScoped<IVehicleRepository, MongoVehicleRepository>();
 
             return new InfrastructureBuilder(services);
         }
