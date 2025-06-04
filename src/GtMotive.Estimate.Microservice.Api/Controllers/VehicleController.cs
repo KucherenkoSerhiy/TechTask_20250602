@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using GtMotive.Estimate.Microservice.Api.Mapping;
 using GtMotive.Estimate.Microservice.Api.Models;
 using GtMotive.Estimate.Microservice.ApplicationCore.Services;
+using GtMotive.Estimate.Microservice.Domain;
 using GtMotive.Estimate.Microservice.Domain.ValueObjects;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -103,11 +104,27 @@ namespace GtMotive.Estimate.Microservice.Api.Controllers
                 return BadRequest("Invalid vehicle ID format");
             }
 
-            var vehicleId = new VehicleId(vehicleGuid);
-            var vehicle = await _rentalService.RentVehicleAsync(vehicleId, request.CustomerId, cancellationToken);
-            var vehicleDto = VehicleMapper.ToDto(vehicle);
+            try
+            {
+                var vehicleId = new VehicleId(vehicleGuid);
+                var vehicle = await _rentalService.RentVehicleAsync(vehicleId, request.CustomerId, cancellationToken);
+                var vehicleDto = VehicleMapper.ToDto(vehicle);
 
-            return Ok(vehicleDto);
+                return Ok(vehicleDto);
+            }
+            catch (DomainException ex) when (ex.Message.Contains("Vehicle not found", StringComparison.OrdinalIgnoreCase))
+            {
+                return NotFound(ex.Message);
+            }
+            catch (DomainException ex) when (ex.Message.Contains("already has an active rental", StringComparison.OrdinalIgnoreCase) ||
+                                           ex.Message.Contains("not available for rental", StringComparison.OrdinalIgnoreCase))
+            {
+                return Conflict(ex.Message);
+            }
+            catch (DomainException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         /// <summary>
@@ -134,11 +151,27 @@ namespace GtMotive.Estimate.Microservice.Api.Controllers
                 return BadRequest("Invalid vehicle ID format");
             }
 
-            var vehicleId = new VehicleId(vehicleGuid);
-            var vehicle = await _rentalService.ReturnVehicleAsync(vehicleId, request.CustomerId, cancellationToken);
-            var vehicleDto = VehicleMapper.ToDto(vehicle);
+            try
+            {
+                var vehicleId = new VehicleId(vehicleGuid);
+                var vehicle = await _rentalService.ReturnVehicleAsync(vehicleId, request.CustomerId, cancellationToken);
+                var vehicleDto = VehicleMapper.ToDto(vehicle);
 
-            return Ok(vehicleDto);
+                return Ok(vehicleDto);
+            }
+            catch (DomainException ex) when (ex.Message.Contains("Vehicle not found", StringComparison.OrdinalIgnoreCase))
+            {
+                return NotFound(ex.Message);
+            }
+            catch (DomainException ex) when (ex.Message.Contains("not rented by this customer", StringComparison.OrdinalIgnoreCase) ||
+                                           ex.Message.Contains("not currently rented", StringComparison.OrdinalIgnoreCase))
+            {
+                return Conflict(ex.Message);
+            }
+            catch (DomainException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
